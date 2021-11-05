@@ -3,28 +3,30 @@ import java.util.Scanner;
 public class UndirLaFlota {
     // final int iTurnos = 2;
 
-    public static final int iTurnos = 2;
+    public static final int iTurnos = 1;
+    public static final int iBarcos = 20;
     private static Process start;
 
     public static void main(String[] args) {
         ProcessBuilder CLS = new ProcessBuilder("cmd", "/c", "cls"); // Esta sentencia es para crear un proceso de cmd.
         Scanner sc = new Scanner(System.in); 
 
-        int iPosicionX, iPosicionY, iTurnosPlayer;
+        int iPosicionX = 0, iPosicionY = 0, iTurnosPlayer = 0, iTocadosContador = 0;
         String iCordenadas = "";
 
         // Es un Array de dos dimensiones de tipo char en la que emos denominado
         // cTablero, loemos mapedo de manera manual.
         // En el Array emos determidado los caracteres m y B, el caracter m representa
         // el mar y el caracter B representan los barcos.
-        char[][] cTablero = { { 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'B', 'm', },
-                { 'm', 'B', 'm', 'm', 'm', 'm', 'm', 'm', 'B', 'm', },
-                { 'm', 'B', 'm', 'm', 'm', 'm', 'm', 'm', 'B', 'm', },
+        char[][] cTablero = { 
+                { 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'B', },
+                { 'm', 'B', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'B', },
+                { 'm', 'B', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'B', },
                 { 'm', 'B', 'm', 'B', 'B', 'B', 'B', 'B', 'm', 'm', },
                 { 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', },
-                { 'm', 'm', 'm', 'B', 'B', 'm', 'm', 'm', 'm', 'm', },
+                { 'm', 'm', 'm', 'B', 'B', 'm', 'm', 'B', 'm', 'm', },
                 { 'm', 'B', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', },
-                { 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'B', 'm', },
+                { 'm', 'm', 'm', 'm', 'm', 'B', 'm', 'm', 'B', 'm', },
                 { 'B', 'B', 'm', 'B', 'm', 'm', 'm', 'm', 'B', 'm', },
                 { 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', } };
 
@@ -38,6 +40,7 @@ public class UndirLaFlota {
                     start.waitFor(); // Esta sentencia lo que hace es inicializar el proceso en todas las lineas
                                     // necesarias.
                 } catch (Exception e) {
+
                 }
 
                 // Con print imprimimos en pantallas una secuencia un secuanecia de l un al 10
@@ -75,37 +78,44 @@ public class UndirLaFlota {
                 } // El for terminara cuandao haya recorido toda las colupnas
 
                 System.out.println("----------------------------------");
-
+                System.out.println("Turnos: "  + (iTurnosPlayer+1) + " de " + (iTurnos + 1));
                 // Este do while sirve para cuando el usuario tenga que poner las cordenads se
                 // repita en caso de que sean erroneas.
                 do {
 
-                    // este do while comprueba que no hayan menos de 2 caracteres en la longitud de
-                    // cordenadas en caso de lo contradio se repite.
-                    do {
                         System.out.print("Pon las cordenadas: ");
                         iCordenadas = sc.nextLine(); // en iCordenadas se almacenadan las cordenadas de la siguiente manera:
                                                     // A1, G5, etc...
-                    } while (iCordenadas.length() < 2);
 
                     // En iPosicionX lo que hacemos es coger el primer caracter del String con el
                     // metodo charAt() luego lo convertimos a entero con la classe
                     // Character usando el metodo getNumericValue() luego le restamos 10 ya que al
                     // pasar por ejemplo el carachter A se convierte en 10 y al restarle 10 pasa a
                     // 0. otros ejemplos seria B = 1, C = 3, etc...
-                    iPosicionX = Character.getNumericValue(iCordenadas.charAt(0)) - 10;
+                    try {
+                        iPosicionX = Character.getNumericValue(iCordenadas.charAt(0)) - 10;
+                    } catch (Exception e) {
+                        //TODO: handle exception
+                        System.out.println("!!! Cordenadas incorrectas: Valor erroneo !!!");
+                    }
 
                     // En iPosicionY lo que hacemos es retidar el primer caracter del String con el
                     // metodo substring() luego lo convertimos a entero con la classe
                     // Integer usando el metodo parseInt().
-                    iPosicionY = Integer.parseInt(iCordenadas.substring(1)) - 1;
-
-                    // Con este if se comprueba que la posicon X y Y no sea mayo 10 ni inferior a 0.
+                    try {
+                        iPosicionY = Integer.parseInt(iCordenadas.substring(1)) - 1;
+                    } catch (Exception e) {
+                        //TODO: handle exception
+                        System.out.println("!!! Cordenadas incorrectas: Conversion erronea !!!");
+                       
+                    }
+                    
+                    // Con este if se comprueba que la posicon X y Y no sea mayor 10 ni inferior a 0.
                     // Si se cumple saldra del do while.
-                    if (iPosicionX >= 0 & iPosicionX < 10 & iPosicionY >= 0 & iPosicionY < 10) {
+                    if (iPosicionX >= 0 & iPosicionX < cTablero.length & iPosicionY >= 0 & iPosicionY < cTablero.length) {
                         break;
                     } else {
-                        System.out.println("!!! Cordenadas incorrectas !!!");
+                        System.out.println("!!! Cordenadas incorrectas: Fuera de rango !!!");
                     }
                 } while (true);
 
@@ -114,14 +124,48 @@ public class UndirLaFlota {
                 // una V de vacios.
                 if (cTablero[iPosicionX][iPosicionY] == 'B') {
                     cTablero[iPosicionX][iPosicionY] = 'T';
+                    iTocadosContador++;
+                    if (iTocadosContador == iBarcos) {
+                        break;
+                    }
                 } else if (cTablero[iPosicionX][iPosicionY] == 'm') {
                     cTablero[iPosicionX][iPosicionY] = 'V';
                     break;
                 }
 
-                // iTurnosPlayer++;
             } while (true);
-            System.out.println("cosas");
+            
+            
+            if (iTurnosPlayer == iTurnos) {
+                System.out.println("    1  2  3  4  5  6  7  8  9  10");
+                for (iPosicionX = 0; iPosicionX < cTablero.length; iPosicionX++) {
+                    System.out.print(" " + Character.forDigit(iPosicionX + 10, 20) + " ");
+                    for (iPosicionY = 0; iPosicionY < cTablero.length; iPosicionY++) {
+                        System.out.print("[" + cTablero[iPosicionX][iPosicionY] + "]");
+                    } 
+                    System.out.println(""); 
+                }
+
+                System.out.println("----------------------------------");
+                System.out.println("!!! Game Over !!!");
+                System.out.println("!!! Perdiste boludo !!!");
+                System.exit(0);
+            } else if (iTocadosContador == iBarcos) {
+                System.out.println("    1  2  3  4  5  6  7  8  9  10");
+                for (iPosicionX = 0; iPosicionX < cTablero.length; iPosicionX++) {
+                    System.out.print(" " + Character.forDigit(iPosicionX + 10, 20) + " ");
+                    for (iPosicionY = 0; iPosicionY < cTablero.length; iPosicionY++) {
+                        System.out.print("[" + cTablero[iPosicionX][iPosicionY] + "]");
+                    } 
+                    System.out.println(""); 
+                }
+
+                System.out.println("----------------------------------");
+                System.out.println("!!! Ganaste !!!");
+                System.out.println("!!! boludo !!!");
+                System.exit(0);
+            }
+            iTurnosPlayer++;
         } while (true);
     }
 }
