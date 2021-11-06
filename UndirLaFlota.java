@@ -1,10 +1,9 @@
 import java.util.Scanner;
 
 public class UndirLaFlota {
-    // final int iTurnos = 2;
 
     public static final int iTurnos = 1;
-    public static final int iBarcosTocados = 20;
+    public static final int iBarcosTocados = 21;
     private static Process start;
 
     public static void main(String[] args) {
@@ -18,18 +17,16 @@ public class UndirLaFlota {
         // cTablero, loemos mapedo de manera manual.
         // En el Array emos determidado los caracteres m y B, el caracter m representa
         // el mar y el caracter B representan los barcos.
-        char[][] cTablero = { 
-            { 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'B', },
-            { 'm', 'B', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'B', },
-            { 'm', 'B', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'B', },
-            { 'm', 'B', 'm', 'B', 'B', 'B', 'B', 'B', 'm', 'm', },
-            { 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', },
-            { 'm', 'm', 'm', 'B', 'B', 'm', 'm', 'B', 'm', 'm', },
-            { 'm', 'B', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', },
-            { 'm', 'm', 'm', 'm', 'm', 'B', 'm', 'm', 'B', 'm', },
-            { 'B', 'B', 'm', 'B', 'm', 'm', 'm', 'm', 'B', 'm', },
-            { 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', } 
-        };
+        char[][] cTablero = { { 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'B', },
+                { 'm', 'B', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'B', },
+                { 'm', 'B', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'B', },
+                { 'm', 'B', 'm', 'B', 'B', 'B', 'B', 'B', 'm', 'm', },
+                { 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', },
+                { 'm', 'm', 'm', 'B', 'B', 'm', 'm', 'B', 'm', 'm', },
+                { 'm', 'B', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', },
+                { 'm', 'm', 'm', 'm', 'm', 'B', 'm', 'm', 'B', 'm', },
+                { 'B', 'B', 'm', 'B', 'm', 'm', 'm', 'm', 'B', 'm', },
+                { 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', } };
 
         // Este do while representa el loop principal del juego, terminara cuando agotes
         // todos los turnos o undas todos los barcos.
@@ -79,7 +76,8 @@ public class UndirLaFlota {
                 } // El for terminara cuandao haya recorido toda las colupnas
 
                 System.out.println("----------------------------------");
-                System.out.println("Turnos: " + (iTurnosPlayer + 1) + " de " + (iTurnos + 1));
+                System.out.println("Turnos: " + (iTurnosPlayer + 1) + " de " + (iTurnos + 1) + " : tocados: "
+                        + iTocadosContador + " de " + iBarcosTocados);
                 // Este do while sirve para cuando el usuario tenga que poner las cordenads se
                 // repita en caso de que sean erroneas.
                 do {
@@ -112,9 +110,11 @@ public class UndirLaFlota {
 
                     }
 
-                    // Con este if se comprueba que la posicon X y Y no sea mayor 10 ni inferior a 0.
+                    // Con este if se comprueba que la posicon X y Y no sea mayor 10 ni inferior a
+                    // 0.
                     // Si se cumple saldra del do while.
-                    if (iPosicionX >= 0 & iPosicionX < cTablero.length & iPosicionY >= 0 & iPosicionY < cTablero.length) {
+                    if (iPosicionX >= 0 & iPosicionX < cTablero.length & iPosicionY >= 0
+                            & iPosicionY < cTablero.length) {
                         break;
                     } else {
                         System.out.println("!!! Cordenadas incorrectas: Fuera de rango !!!");
@@ -130,10 +130,11 @@ public class UndirLaFlota {
 
                 } else if (cTablero[iPosicionX][iPosicionY] == 'm') {
                     cTablero[iPosicionX][iPosicionY] = 'V';
+                    break;
 
                 }
 
-            } while (iTocadosContador != iBarcosTocados || cTablero[iPosicionX][iPosicionY] != 'm');
+            } while (iTocadosContador != iBarcosTocados);
 
             // con este if conprobamos que los turnos del jugador sean iguales alos turnos
             // del juego si se cumple la condicion imprime ne pantalla el tabledo mostrando
