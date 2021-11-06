@@ -18,17 +18,16 @@ public class UndirLaFlota {
         // cTablero, loemos mapedo de manera manual.
         // En el Array emos determidado los caracteres m y B, el caracter m representa
         // el mar y el caracter B representan los barcos.
-        char[][] cTablero = { 
-            { 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'B', },
-            { 'm', 'B', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'B', },
-            { 'm', 'B', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'B', },
-            { 'm', 'B', 'm', 'B', 'B', 'B', 'B', 'B', 'm', 'm', },
-            { 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', },
-            { 'm', 'm', 'm', 'B', 'B', 'm', 'm', 'B', 'm', 'm', },
-            { 'm', 'B', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', },
-            { 'm', 'm', 'm', 'm', 'm', 'B', 'm', 'm', 'B', 'm', },
-            { 'B', 'B', 'm', 'B', 'm', 'm', 'm', 'm', 'B', 'm', },
-            { 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', } };
+        char[][] cTablero = { { 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'B', },
+                { 'm', 'B', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'B', },
+                { 'm', 'B', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'B', },
+                { 'm', 'B', 'm', 'B', 'B', 'B', 'B', 'B', 'm', 'm', },
+                { 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', },
+                { 'm', 'm', 'm', 'B', 'B', 'm', 'm', 'B', 'm', 'm', },
+                { 'm', 'B', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', },
+                { 'm', 'm', 'm', 'm', 'm', 'B', 'm', 'm', 'B', 'm', },
+                { 'B', 'B', 'm', 'B', 'm', 'm', 'm', 'm', 'B', 'm', },
+                { 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', } };
 
         // Este do while representa el loop principal del juego, terminara cuando agotes
         // todos los turnos o undas todos los barcos.
@@ -94,7 +93,8 @@ public class UndirLaFlota {
                     // 0. otros ejemplos seria B = 1, C = 3, etc...
 
                     try { // con el try catch estamos comprobando si puede dar una excepcion en caso de
-                          // que los valores no sean correctosm, si aparece una excepcion ejecutara el catch en vez del try.
+                          // que los valores no sean correctosm, si aparece una excepcion ejecutara el
+                          // catch en vez del try.
                         iPosicionX = Character.getNumericValue(iCordenadas.charAt(0)) - 10;
                     } catch (Exception e) {
                         System.out.println("!!! Cordenadas incorrectas: Valor erroneo !!!");
@@ -110,9 +110,11 @@ public class UndirLaFlota {
 
                     }
 
-                    // Con este if se comprueba que la posicon X y Y no sea mayor 10 ni inferior a 0.
+                    // Con este if se comprueba que la posicon X y Y no sea mayor 10 ni inferior a
+                    // 0.
                     // Si se cumple saldra del do while.
-                    if (iPosicionX >= 0 & iPosicionX < cTablero.length & iPosicionY >= 0 & iPosicionY < cTablero.length) {
+                    if (iPosicionX >= 0 & iPosicionX < cTablero.length & iPosicionY >= 0
+                            & iPosicionY < cTablero.length) {
                         break;
                     } else {
                         System.out.println("!!! Cordenadas incorrectas: Fuera de rango !!!");
