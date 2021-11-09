@@ -6,7 +6,7 @@ public class UndirLaFlota {
 
     private static Scanner sc = new Scanner(System.in); 
 
-    public static final int iTurnos = 1;
+    public static final int iTurnos = 19;
     public static final int iBarcosTocados = 21;
 
     public static void main(String[] args) {
