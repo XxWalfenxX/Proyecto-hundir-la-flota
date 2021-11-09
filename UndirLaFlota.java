@@ -4,7 +4,7 @@ public class UndirLaFlota {
     private static ProcessBuilder CLS = new ProcessBuilder("cmd", "/c", "cls"); // Esta sentencia es para crear un proceso de cmd.
     private static Process start;
 
-    private static Scanner sc = new Scanner(System.in);
+    private static Scanner sc = new Scanner(System.in); 
 
     public static final int iTurnos = 1;
     public static final int iBarcosTocados = 21;
@@ -165,6 +165,13 @@ public class UndirLaFlota {
             // la uvicacion de los barcos y mandando te un mensaje de que as perdido y
             // finaliza el juego.
             if (iTurnosPlayer == iTurnos) {
+                try { // el try es un metodo para preveer las Excepciones
+                    start = CLS.inheritIO().start(); // Esta sentencia es para al macenar el proceso con la funcion de
+                                                     // inicializacion en start que es una variable privada.
+                    start.waitFor(); // Esta sentencia lo que hace es inicializar el proceso en todas las lineas
+                                     // necesarias.
+                } catch (Exception e) {
+                }
                 System.out.println("    1  2  3  4  5  6  7  8  9  10");
 
                 for (iPosicionX = 0; iPosicionX < cTablero.length; iPosicionX++) {
@@ -185,6 +192,13 @@ public class UndirLaFlota {
                 // tocados del juego se muester en pantalla els tablero y te salte un mensaje de
                 // que as ganado y finaliza el juego.
             } else if (iTocadosContador == iBarcosTocados) {
+                try { // el try es un metodo para preveer las Excepciones
+                    start = CLS.inheritIO().start(); // Esta sentencia es para al macenar el proceso con la funcion de
+                                                     // inicializacion en start que es una variable privada.
+                    start.waitFor(); // Esta sentencia lo que hace es inicializar el proceso en todas las lineas
+                                     // necesarias.
+                } catch (Exception e) {
+                }
                 System.out.println("    1  2  3  4  5  6  7  8  9  10");
 
                 for (iPosicionX = 0; iPosicionX < cTablero.length; iPosicionX++) {
