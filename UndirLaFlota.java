@@ -1,17 +1,17 @@
 import java.util.Scanner;
 
 public class UndirLaFlota {
+    private static ProcessBuilder CLS = new ProcessBuilder("cmd", "/c", "cls"); // Esta sentencia es para crear un proceso de cmd.
+    private static Process start;
+
+    private static Scanner sc = new Scanner(System.in);
 
     public static final int iTurnos = 1;
     public static final int iBarcosTocados = 21;
-    private static Process start;
 
     public static void main(String[] args) {
-        ProcessBuilder CLS = new ProcessBuilder("cmd", "/c", "cls"); // Esta sentencia es para crear un proceso de cmd.
-        Scanner sc = new Scanner(System.in);
-
         int iPosicionX = 0, iPosicionY = 0, iTurnosPlayer = 0, iTocadosContador = 0;
-        String iCordenadas = "";
+        String sCordenadas = "", sMenu = "";
 
         // Es un Array de dos dimensiones de tipo char en la que emos denominado
         // cTablero, loemos mapedo de manera manual.
@@ -29,6 +29,31 @@ public class UndirLaFlota {
             { 'B', 'B', 'm', 'B', 'm', 'm', 'm', 'm', 'B', 'm', },
             { 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', } 
         };
+
+        try { // el try es un metodo para preveer las Excepciones
+            start = CLS.inheritIO().start(); // Esta sentencia es para al macenar el proceso con la funcion de
+                                             // inicializacion en start que es una variable privada.
+            start.waitFor(); // Esta sentencia lo que hace es inicializar el proceso en todas las lineas
+                             // necesarias.
+        } catch (Exception e) {
+        }
+
+        System.out.println("//////////////////////////////");
+        System.out.println("//       1. Jugar           //");
+        System.out.println("//       2. Salir           //");
+        System.out.println("//////////////////////////////");
+
+        do {
+            System.out.print("Elige una opcion: ");
+            sMenu = sc.nextLine();
+            if (sMenu.equals("2")) {
+                System.exit(0);
+            } else {
+                System.out.println("Pon 1 o 2");
+            }
+        } while (!sMenu.equals("1"));
+        
+
 
         // Este do while representa el loop principal del juego, terminara cuando agotes
         // todos los turnos o undas todos los barcos.
@@ -84,7 +109,7 @@ public class UndirLaFlota {
                 do {
 
                     System.out.print("Pon las cordenadas: ");
-                    iCordenadas = sc.nextLine(); // en iCordenadas se almacenadan las cordenadas de la siguiente manera:
+                    sCordenadas = sc.nextLine(); // en iCordenadas se almacenadan las cordenadas de la siguiente manera:
                                                  // A1, G5, etc...
 
                     // En iPosicionX lo que hacemos es coger el primer caracter del String con el
@@ -96,7 +121,7 @@ public class UndirLaFlota {
                     try { // con el try catch estamos comprobando si puede dar una excepcion en caso de
                           // que los valores no sean correctosm, si aparece una excepcion ejecutara el
                           // catch en vez del try.
-                        iPosicionX = Character.getNumericValue(iCordenadas.charAt(0)) - 10;
+                        iPosicionX = Character.getNumericValue(sCordenadas.charAt(0)) - 10;
                     } catch (Exception e) {
                         System.out.println("!!! Cordenadas incorrectas: Valor erroneo !!!");
                     }
@@ -105,7 +130,7 @@ public class UndirLaFlota {
                     // metodo substring() luego lo convertimos a entero con la classe
                     // Integer usando el metodo parseInt().
                     try {
-                        iPosicionY = Integer.parseInt(iCordenadas.substring(1)) - 1;
+                        iPosicionY = Integer.parseInt(sCordenadas.substring(1)) - 1;
                     } catch (Exception e) {
                         System.out.println("!!! Cordenadas incorrectas: Conversion erronea !!!");
 
