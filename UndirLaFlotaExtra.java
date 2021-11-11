@@ -7,9 +7,10 @@ public class UndirLaFlotaExtra {
     private static Scanner sc = new Scanner(System.in); 
 
 
-    public static final int iMultiplicador = 20;
+    public static final int iMultiplicador = 30;
 
     public static final int iBarcosNivel4 = 1;
+    public static final int iBarcosNivel3 = 2;
     public static final int iBarcosNivel1 = 4;
 
     public static final int iTurnos = 19;
@@ -40,8 +41,8 @@ public class UndirLaFlotaExtra {
         */
 
         char[][] cTablero = new char[10][10];
-        int iRandom, iBarcosNivel1Contador = 0 ,iBarcosNivel4Contador = 0;
-
+        int iRandom, iRandom2, iBarcosNivel3Contador = 0 ,iBarcosNivel4Contador = 0;
+        boolean bTestArriba = false, btestAbajo = false;
        
 
         
@@ -88,19 +89,22 @@ public class UndirLaFlotaExtra {
 
         do {
             iBarcosNivel4Contador = 0;
+            iBarcosNivel3Contador = 0;
             for (iPosicionX = 0; iPosicionX < cTablero.length; iPosicionX++) {
                 for (iPosicionY = 0; iPosicionY < cTablero.length; iPosicionY++) {
                     cTablero[iPosicionX][iPosicionY] = 'm';
                 }
             }
 
-            for (iPosicionX = 0; iPosicionX < cTablero.length; iPosicionX++) {
-                for (iPosicionY = 0; iPosicionY < cTablero.length; iPosicionY++) {
-                    if (cTablero[iPosicionX][iPosicionY] == 'm') { 
-                        try {
-                            iRandom = (int) (Math.random()*iMultiplicador)+1;
-                            System.out.println(iRandom);
-                                if (cTablero[iPosicionX][iPosicionY+3] == 'm' & iRandom == iMultiplicador/2) {
+            // barco de 4
+            do {
+                for (iPosicionX = 0; iPosicionX < cTablero.length; iPosicionX++) {
+                    for (iPosicionY = 0; iPosicionY < cTablero.length; iPosicionY++) {
+                        if (cTablero[iPosicionX][iPosicionY] == 'm') { 
+                            try {
+                                iRandom = (int) (Math.random()*iMultiplicador)+1;
+                                iRandom2 = (int) (Math.random()*2)+1;
+                                if (cTablero[iPosicionX][iPosicionY + 3] == 'm' & iRandom == iMultiplicador/2 & iRandom2 == 1) {
                                     if (iBarcosNivel4Contador != iBarcosNivel4) {
                                         cTablero[iPosicionX][iPosicionY] = 'B';
                                         cTablero[iPosicionX][iPosicionY+1] = 'B';
@@ -108,23 +112,121 @@ public class UndirLaFlotaExtra {
                                         cTablero[iPosicionX][iPosicionY+3] = 'B';
                                         iBarcosNivel4Contador++;
                                         break;
+                                    }  
+                                } 
+                                
+                                if (cTablero[iPosicionX + 2][iPosicionY] == 'm' &  cTablero[iPosicionX - 1][iPosicionY] == 'm' & iRandom == iMultiplicador/2 ) {
+                                    if (iBarcosNivel4Contador != iBarcosNivel4) {
+                                        cTablero[iPosicionX + 2][iPosicionY] = 'B';
+                                        cTablero[iPosicionX + 1][iPosicionY] = 'B';
+                                        cTablero[iPosicionX][iPosicionY] = 'B';
+                                        cTablero[iPosicionX  - 1][iPosicionY] = 'B';
+                                        iBarcosNivel4Contador++;
+                                        break;
                                     }
                                 }
+                                    
+                                
+                                }catch (Exception e) {
+                            }
                             
-                            }catch (Exception e) {
-                            System.out.println("Erroro posicion:" + cTablero[iPosicionX][iPosicionY]);
                         }
-                        
                     }
                 }
-            }
+            } while (iBarcosNivel4Contador != iBarcosNivel4);
+
+            // barco de 3
+            do {
+                for (iPosicionX = 0; iPosicionX < cTablero.length; iPosicionX++) {
+                    for (iPosicionY = 0; iPosicionY < cTablero.length; iPosicionY++) {
+                        if (cTablero[iPosicionX][iPosicionY] == 'm') { 
+                            try {
+                                iRandom = (int) (Math.random()*iMultiplicador)+1;
+                                iRandom2 = (int) (Math.random()*2)+1;
+                                if (
+                                    cTablero[iPosicionX][iPosicionY - 1] == 'm' & 
+                                    cTablero[iPosicionX][iPosicionY + 1] == 'm' & 
+                                    cTablero[iPosicionX][iPosicionY + 2] == 'm' & 
+                                    cTablero[iPosicionX][iPosicionY + 3] == 'm' & 
+                                    iRandom == iMultiplicador/2 & iRandom2 == 1) {
+                                    try {
+                                        if (cTablero[iPosicionX + 1][iPosicionY - 1] == 'm' & 
+                                            cTablero[iPosicionX + 1][iPosicionY + 1] == 'm' & 
+                                            cTablero[iPosicionX + 1][iPosicionY] == 'm' &
+                                            cTablero[iPosicionX + 1][iPosicionY + 2] == 'm' & 
+                                            cTablero[iPosicionX + 1][iPosicionY + 3] == 'm'
+                                            ) {
+                                                bTestArriba = true;
+                                                
+                                        }
+                                    } catch (Exception e) {
+                                        bTestArriba = true;
+                                       if (iBarcosNivel3Contador != iBarcosNivel3) {
+                                        cTablero[iPosicionX][iPosicionY] = 'B';
+                                        cTablero[iPosicionX][iPosicionY+1] = 'B';
+                                        cTablero[iPosicionX][iPosicionY+2] = 'B';
+                                        iBarcosNivel3Contador++;
+                                        break;
+                                    }  
+                                    /*
+                                    cTablero[iPosicionX - 1][iPosicionY - 1] == 'm' & 
+                                            cTablero[iPosicionX - 1][iPosicionY + 1] == 'm' & 
+                                            cTablero[iPosicionX - 1][iPosicionY] == 'm' &
+                                            cTablero[iPosicionX - 1][iPosicionY + 2] == 'm' & 
+                                            cTablero[iPosicionX - 1][iPosicionY + 3] == 'm'
+
+                                    }
+                                    
+                                    */
+                                    
+                                } 
+                                
+                                if (
+                                    cTablero[iPosicionX + 2][iPosicionY] == 'm' &
+                                    cTablero[iPosicionX + 1][iPosicionY] == 'm' &
+                                    cTablero[iPosicionX - 1][iPosicionY] == 'm' & 
+                                    cTablero[iPosicionX - 2][iPosicionY] == 'm' & 
+                                    cTablero[iPosicionX + 2][iPosicionY - 1] == 'm' &
+                                    cTablero[iPosicionX + 1][iPosicionY - 1] == 'm' &
+                                    cTablero[iPosicionX - 1][iPosicionY - 1] == 'm' & 
+                                    cTablero[iPosicionX - 2][iPosicionY - 1] == 'm' &
+                                    cTablero[iPosicionX + 2][iPosicionY + 1] == 'm' &
+                                    cTablero[iPosicionX + 1][iPosicionY + 1] == 'm' &
+                                    cTablero[iPosicionX - 1][iPosicionY + 1] == 'm' & 
+                                    cTablero[iPosicionX - 2][iPosicionY + 1] == 'm' &
+                                    iRandom == iMultiplicador/2 
+
+                                ) {
+                                    if (iBarcosNivel3Contador != iBarcosNivel3) {
+                                        cTablero[iPosicionX + 1][iPosicionY] = 'B';
+                                        cTablero[iPosicionX][iPosicionY] = 'B';
+                                        cTablero[iPosicionX  - 1][iPosicionY] = 'B';
+                                        iBarcosNivel3Contador++;
+                                        break;
+                                    }
+                                }
+                                    
+                                
+                                }catch (Exception e) {
+                            }
+                            
+                        }
+                    }
+                }
+            } while (iBarcosNivel3Contador != iBarcosNivel3);
 
             for (iPosicionX = 0; iPosicionX < cTablero.length; iPosicionX++) {
                 for (iPosicionY = 0; iPosicionY < cTablero.length; iPosicionY++) {
-                    System.out.print("[" + cTablero[iPosicionX][iPosicionY] + "]");
+                    if (cTablero[iPosicionX][iPosicionY] == 'B') {
+                        System.out.print(" " + cTablero[iPosicionX][iPosicionY] + " ");
+                    } else {
+                        System.out.print("[" + cTablero[iPosicionX][iPosicionY] + "]");
+                    }
+                    
                 }
                 System.out.println("");
             }
+            
             sMenu = sc.nextLine();
             
         } while (sMenu != "0");
