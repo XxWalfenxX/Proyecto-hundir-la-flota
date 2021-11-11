@@ -142,7 +142,7 @@ public class UndirLaFlotaExtra {
                         if (cTablero[iPosicionX][iPosicionY] == 'm') { 
                             try {
                                 iRandom = (int) (Math.random()*iMultiplicador)+1;
-                                iRandom2 = (int) (Math.random()*2)+1;
+                                iRandom2 = (int) (Math.random()*2)+1; 
                                 if (
                                     cTablero[iPosicionX][iPosicionY - 1] == 'm' & 
                                     cTablero[iPosicionX][iPosicionY + 1] == 'm' & 
