@@ -17,9 +17,10 @@ public class UndirLaFlotaExtra {
     public static final int iTurnos = 19;
     public static final int iBarcosTocados = 20;
 
-    public static final char cMar = 'm';
+    public static final char cMar = '*';
     public static final char cBarco = 'B';
     public static final char cTocados = 'T';
+    public static final char cVacio = 'A';
 
     public static void main(String[] args) {
         int iPosicionX = 0, iPosicionY = 0, iTurnosPlayer = 0, iTocadosContador = 0;
@@ -431,7 +432,7 @@ public class UndirLaFlotaExtra {
                         if (cTablero[iPosicionX][iPosicionY] == cTocados) {
                             System.out.print(" " + cTablero[iPosicionX][iPosicionY] + " ");
                         } else if (cTablero[iPosicionX][iPosicionY] == cBarco ) {
-                            System.out.print("[" + "m" + "]");
+                            System.out.print("[" + cMar + "]");
                         } else {
                             System.out.print("[" + cTablero[iPosicionX][iPosicionY] + "]");
                         }
@@ -492,7 +493,7 @@ public class UndirLaFlotaExtra {
                     iTocadosContador++;
 
                 } else if (cTablero[iPosicionX][iPosicionY] == cMar) {
-                    cTablero[iPosicionX][iPosicionY] = 'V';
+                    cTablero[iPosicionX][iPosicionY] = cVacio ;
                     break;
 
                 }
