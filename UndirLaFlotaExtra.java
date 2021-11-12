@@ -515,7 +515,14 @@ public class UndirLaFlotaExtra {
                 for (iPosicionX = 0; iPosicionX < cTablero.length; iPosicionX++) {
                     System.out.print(" " + Character.forDigit(iPosicionX + 10, 20) + " ");
                     for (iPosicionY = 0; iPosicionY < cTablero.length; iPosicionY++) {
-                        System.out.print("[" + cTablero[iPosicionX][iPosicionY] + "]");
+                        if (cTablero[iPosicionX][iPosicionY] == 'T') {
+                            System.out.print(" " + cTablero[iPosicionX][iPosicionY] + " "); 
+                        } else if (cTablero[iPosicionX][iPosicionY] == cBarco) {
+                           System.out.print(" " + cTablero[iPosicionX][iPosicionY] + " "); 
+                        } else {
+                            System.out.print("[" + cTablero[iPosicionX][iPosicionY] + "]"); 
+                        }
+                        
 
                     }
                     System.out.println("");
