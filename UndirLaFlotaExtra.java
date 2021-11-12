@@ -19,6 +19,7 @@ public class UndirLaFlotaExtra {
 
     public static final char cMar = 'm';
     public static final char cBarco = 'B';
+    public static final char cTocados = 'T';
 
     public static void main(String[] args) {
         int iPosicionX = 0, iPosicionY = 0, iTurnosPlayer = 0, iTocadosContador = 0;
@@ -427,7 +428,7 @@ public class UndirLaFlotaExtra {
                     // sustituir el caracter B pro el m para que no se vea en el tablero.
                     for (iPosicionY = 0; iPosicionY < cTablero.length; iPosicionY++) {
 
-                        if (cTablero[iPosicionX][iPosicionY] == 'T') {
+                        if (cTablero[iPosicionX][iPosicionY] == cTocados) {
                             System.out.print(" " + cTablero[iPosicionX][iPosicionY] + " ");
                         } else if (cTablero[iPosicionX][iPosicionY] == cBarco ) {
                             System.out.print("[" + "m" + "]");
@@ -487,7 +488,7 @@ public class UndirLaFlotaExtra {
                 // posicon del array es B pondra una T de rocado y si detecta que es m pondra
                 // una V de vacios.
                 if (cTablero[iPosicionX][iPosicionY] == cBarco ) {
-                    cTablero[iPosicionX][iPosicionY] = 'T';
+                    cTablero[iPosicionX][iPosicionY] = cTocados;
                     iTocadosContador++;
 
                 } else if (cTablero[iPosicionX][iPosicionY] == cMar) {
@@ -515,7 +516,7 @@ public class UndirLaFlotaExtra {
                 for (iPosicionX = 0; iPosicionX < cTablero.length; iPosicionX++) {
                     System.out.print(" " + Character.forDigit(iPosicionX + 10, 20) + " ");
                     for (iPosicionY = 0; iPosicionY < cTablero.length; iPosicionY++) {
-                        if (cTablero[iPosicionX][iPosicionY] == 'T') {
+                        if (cTablero[iPosicionX][iPosicionY] == cTocados) {
                             System.out.print(" " + cTablero[iPosicionX][iPosicionY] + " "); 
                         } else if (cTablero[iPosicionX][iPosicionY] == cBarco) {
                            System.out.print(" " + cTablero[iPosicionX][iPosicionY] + " "); 
