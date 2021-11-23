@@ -64,7 +64,7 @@ public class UndirLaFlotaExtra2 {
 
         String[] aBarcosNivel4Posiciones = new String[4*iBarcosNivel4];
         String[] aBarcosNivel3Posiciones = new String[3*iBarcosNivel3];
-        String[] aBarcosNivel2Posiciones = new String[2*iBarcosNivel2 ];
+        String[] aBarcosNivel2Posiciones = new String[2*iBarcosNivel2];
         String[] aBarcosNivel1Posiciones = new String[1*iBarcosNivel1];
         int iBarcosTocadosNivel4 = 0, iBarcosTocadosNivel3 = 0,iBarcosTocados2Nivel3 = 0, iBarcosTocadosNivel2 = 0, iBarcosTocadosNivel1 = 0;
         boolean iBarcosNivel4Undido = false , iBarcosNivel3Undido = false, iBarcosNivel3Undido2 = false, iBarcosNivel2Undido = false, iBarcosNivel1Undido = false;
@@ -382,7 +382,7 @@ public class UndirLaFlotaExtra2 {
                                         
                                         
                                     }
-                                    
+
                                     iBarcosNivel2Contador++;
                                     break;
                                 }
@@ -431,12 +431,12 @@ public class UndirLaFlotaExtra2 {
                                     //------------------------------------------------------------------------------------------
                                     
                                     if (iBarcosNivel2Contador == 0) {
-                                        aBarcosNivel2Posiciones[2] = Integer.toString(iPosicionY) + Integer.toString(iPosicionX + 1);
-                                        aBarcosNivel2Posiciones[1] = Integer.toString(iPosicionY) + Integer.toString(iPosicionX);
+                                        aBarcosNivel2Posiciones[1] = Integer.toString(iPosicionY) + Integer.toString(iPosicionX + 1);
+                                        aBarcosNivel2Posiciones[0] = Integer.toString(iPosicionY) + Integer.toString(iPosicionX);
                                     } else {
                                         try {
-                                            aBarcosNivel2Posiciones[0+(iBarcosNivel2Contador + 2)] = Integer.toString(iPosicionY) + Integer.toString(iPosicionX + 1);
-                                            aBarcosNivel2Posiciones[1+(iBarcosNivel2Contador + 2)] = Integer.toString(iPosicionY) + Integer.toString(iPosicionX);  
+                                            aBarcosNivel2Posiciones[1+(iBarcosNivel2Contador + 2)] = Integer.toString(iPosicionY) + Integer.toString(iPosicionX + 1);
+                                            aBarcosNivel2Posiciones[0+(iBarcosNivel2Contador + 2)] = Integer.toString(iPosicionY) + Integer.toString(iPosicionX);  
                                         } catch (Exception e) {
                                             //TODO: handle exception
                                         }
@@ -555,8 +555,6 @@ public class UndirLaFlotaExtra2 {
                         for (int i = 0; i < aBarcosNivel3Posiciones.length-3; i++) {
                             iPosicionY = Character.getNumericValue(aBarcosNivel3Posiciones[i].charAt(0));
                             iPosicionX = Character.getNumericValue(aBarcosNivel3Posiciones[i].charAt(1));
-    
-                            System.out.println("true1");
                            
                             cTablero[iPosicionX][iPosicionY] = 'H';
                             iBarcosNivel3Undido = true;
@@ -578,8 +576,6 @@ public class UndirLaFlotaExtra2 {
                         for (int i = aBarcosNivel3Posiciones.length-3; i < aBarcosNivel3Posiciones.length; i++) {
                             iPosicionY = Character.getNumericValue(aBarcosNivel3Posiciones[i].charAt(0));
                             iPosicionX = Character.getNumericValue(aBarcosNivel3Posiciones[i].charAt(1));
-    
-                            System.out.println("true2");
                            
                             cTablero[iPosicionX][iPosicionY] = 'H';
                             iBarcosNivel3Undido2 = true;
@@ -590,53 +586,32 @@ public class UndirLaFlotaExtra2 {
 
                 // Comprobacion de Tocado y Hundido de BarcoNivel2
                 //---------------------------------------------------------------------------------------------------------
+                System.out.println(aBarcosNivel2Posiciones.length-iBarcosNivel2);
                 if (iBarcosNivel2Undido != true) {
-                    for (int i = 0; i < aBarcosNivel2Posiciones.length-2*iBarcosNivel2; i++) {
-                        iPosicionY = Character.getNumericValue(aBarcosNivel3Posiciones[i].charAt(0));
-                        iPosicionX = Character.getNumericValue(aBarcosNivel3Posiciones[i].charAt(1));
+                    for (int i = 0; i < aBarcosNivel2Posiciones.length-1*iBarcosNivel2; i++) {
+                        iPosicionY = Character.getNumericValue(aBarcosNivel2Posiciones[i].charAt(0));
+                        iPosicionX = Character.getNumericValue(aBarcosNivel2Posiciones[i].charAt(1));
                         if (cTablero[iPosicionX][iPosicionY] == 'T') {
-                            iBarcosTocadosNivel3++;
+                            iBarcosTocadosNivel2++;
                         } else {
-                            iBarcosTocadosNivel3 = 0;
+                            iBarcosTocadosNivel2 = 0;
                         }
                     }
-                    if (iBarcosTocadosNivel3 == aBarcosNivel3Posiciones.length-3) {
-                        for (int i = 0; i < aBarcosNivel3Posiciones.length-3; i++) {
-                            iPosicionY = Character.getNumericValue(aBarcosNivel3Posiciones[i].charAt(0));
-                            iPosicionX = Character.getNumericValue(aBarcosNivel3Posiciones[i].charAt(1));
+                    if (iBarcosTocadosNivel2 == aBarcosNivel2Posiciones.length-4) {
+                        for (int i = 0; i < aBarcosNivel2Posiciones.length-4; i++) {
+                            iPosicionY = Character.getNumericValue(aBarcosNivel2Posiciones[i].charAt(0));
+                            iPosicionX = Character.getNumericValue(aBarcosNivel2Posiciones[i].charAt(1));
     
                             System.out.println("true1");
                            
                             cTablero[iPosicionX][iPosicionY] = 'H';
-                            iBarcosNivel3Undido = true;
+                            iBarcosNivel2Undido = true;
                         }
                     }
                 }
-    
-                if (iBarcosNivel3Undido2 != true) {
-                    for (int i = aBarcosNivel3Posiciones.length-3; i < aBarcosNivel3Posiciones.length; i++) {
-                        iPosicionY = Character.getNumericValue(aBarcosNivel3Posiciones[i].charAt(0));
-                        iPosicionX = Character.getNumericValue(aBarcosNivel3Posiciones[i].charAt(1));
-                        if (cTablero[iPosicionX][iPosicionY] == 'T') {
-                            iBarcosTocados2Nivel3++;
-                        } else {
-                            iBarcosTocados2Nivel3 = 0;
-                        }
-                    }
-                    if (iBarcosTocados2Nivel3 == aBarcosNivel3Posiciones.length-3) {
-                        for (int i = aBarcosNivel3Posiciones.length-3; i < aBarcosNivel3Posiciones.length; i++) {
-                            iPosicionY = Character.getNumericValue(aBarcosNivel3Posiciones[i].charAt(0));
-                            iPosicionX = Character.getNumericValue(aBarcosNivel3Posiciones[i].charAt(1));
-    
-                            System.out.println("true2");
-                           
-                            cTablero[iPosicionX][iPosicionY] = 'H';
-                            iBarcosNivel3Undido2 = true;
-                        }
-                    }
-                }
-                //---------------------------------------------------------------------------------------------------------
 
+                //---------------------------------------------------------------------------------------------------------
+                /*
                 try { // el try es un metodo para preveer las Excepciones
                     start = CLS.inheritIO().start(); // Esta sentencia es para al macenar el proceso con la funcion de
                                                      // inicializacion en start que es una variable privada.
@@ -645,7 +620,7 @@ public class UndirLaFlotaExtra2 {
                 } catch (Exception e) {
 
                 }
-
+                */
                 // Con print imprimimos en pantallas una secuencia un secuanecia de l un al 10
                 // que la usamos como una manera de visualizar las cordenadas.
                 // Despues del prin se ejecuta un for que lo que hace es recorrer las filas del
