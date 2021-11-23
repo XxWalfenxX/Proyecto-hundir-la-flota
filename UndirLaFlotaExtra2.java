@@ -586,9 +586,10 @@ public class UndirLaFlotaExtra2 {
 
                 // Comprobacion de Tocado y Hundido de BarcoNivel2
                 //---------------------------------------------------------------------------------------------------------
-                System.out.println(aBarcosNivel2Posiciones.length-iBarcosNivel2);
-                if (iBarcosNivel2Undido != true) {
-                    for (int i = 0; i < aBarcosNivel2Posiciones.length-1*iBarcosNivel2; i++) {
+
+                iBarcosNivel2Contador = 0;
+                for (int iContador = 0; iContador < iBarcosNivel2; iContador++) {
+                    for (int i = iBarcosNivel2Contador ; i < aBarcosNivel2Posiciones.length; i++) {
                         iPosicionY = Character.getNumericValue(aBarcosNivel2Posiciones[i].charAt(0));
                         iPosicionX = Character.getNumericValue(aBarcosNivel2Posiciones[i].charAt(1));
                         if (cTablero[iPosicionX][iPosicionY] == 'T') {
@@ -608,8 +609,9 @@ public class UndirLaFlotaExtra2 {
                             iBarcosNivel2Undido = true;
                         }
                     }
+                    System.out.println(iBarcosNivel2Contador);
                 }
-
+            
                 //---------------------------------------------------------------------------------------------------------
                 /*
                 try { // el try es un metodo para preveer las Excepciones
