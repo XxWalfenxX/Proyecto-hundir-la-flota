@@ -1,11 +1,13 @@
+import java.security.Principal;
 import java.util.Scanner;
 
 public class UndirLaFlotaExtra2 {
-    private static ProcessBuilder CLS = new ProcessBuilder("cmd", "/c", "cls"); // Esta sentencia es para crear un proceso de cmd.
+    // variables no tocar
+    // --------------------------------------------------------------------------------------------------
+    private static ProcessBuilder CLS = new ProcessBuilder("cmd", "/c", "cls"); // Esta variable es para crear un proceso de cmd.
     private static Process start;
 
     private static Scanner sc = new Scanner(System.in); 
-
 
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String RED = "\u001B[31m";
@@ -18,23 +20,36 @@ public class UndirLaFlotaExtra2 {
 
     public static final String RESET = "\u001B[0m";
 
-    public static final int iMultiplicador = 30;
-
     public static final int iBarcosNivel4 = 1;
     public static final int iBarcosNivel3 = 2;
     public static final int iBarcosNivel2 = 3;
     public static final int iBarcosNivel1 = 4;
 
+    public static final int iBarcosNivel4longitud = 4;
+    public static final int iBarcosNivel3longitud = 3;
+    public static final int iBarcosNivel2longitud = 2;
+    public static final int iBarcosNivel1longitud = 1;
+    // --------------------------------------------------------------------------------------------------
+
+    // variavles que se pueden tocar y creemos que funcionara
+    // --------------------------------------------------------------------------------------
     public static final int iTurnos = 19;
     public static final int iBarcosTocados = 20;
 
+    public static final int iTableroTamano = 10;
+    public static final int iMultiplicador = 30;
+    
     public static final char cMar = '*';
     public static final char cBarco = 'B';
     public static final char cTocados = 'T';
     public static final char cVacio = 'A';
     public static final char cHundido = 'H';
+    // --------------------------------------------------------------------------------------
 
     public static void main(String[] args) {
+        
+        // variables no tocar
+        // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
         int iPosicionX = 0, iPosicionY = 0, iTurnosPlayer = 0, iTocadosContador = 0;
         String sCordenadas = "", sMenu = "";
 
@@ -58,16 +73,20 @@ public class UndirLaFlotaExtra2 {
         };
         */
 
-        char[][] cTablero = new char[10][10];
+        // variables no tocar
+        // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        char[][] cTablero = new char[iTableroTamano][iTableroTamano];
         int iRandom, iRandom2,  iBarcosNivel1Contador = 0, iBarcosNivel2Contador = 0, iBarcosNivel3Contador = 0 ,iBarcosNivel4Contador = 0;
         boolean bTestArriba = false, bTestAbajo = false, bTestIzquierda = false, bTestDerecha = false;
 
-        String[] aBarcosNivel4Posiciones = new String[4*iBarcosNivel4];
-        String[] aBarcosNivel3Posiciones = new String[3*iBarcosNivel3];
-        String[] aBarcosNivel2Posiciones = new String[2*iBarcosNivel2];
-        String[] aBarcosNivel1Posiciones = new String[1*iBarcosNivel1];
+        String[] aBarcosNivel4Posiciones = new String[iBarcosNivel4longitud*iBarcosNivel4];
+        String[] aBarcosNivel3Posiciones = new String[iBarcosNivel3longitud*iBarcosNivel3];
+        // El 2 representa el tamaño del varco 
+        String[] aBarcosNivel2Posiciones = new String[iBarcosNivel2longitud*iBarcosNivel2];
+        String[] aBarcosNivel1Posiciones = new String[iBarcosNivel1longitud*iBarcosNivel1];
         int iBarcosTocadosNivel4 = 0, iBarcosTocadosNivel3 = 0,iBarcosTocados2Nivel3 = 0, iBarcosTocadosNivel2 = 0, iBarcosTocadosNivel1 = 0;
         boolean iBarcosNivel4Undido = false , iBarcosNivel3Undido = false, iBarcosNivel3Undido2 = false, iBarcosNivel2Undido = false, iBarcosNivel1Undido = false;
+        // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -367,14 +386,12 @@ public class UndirLaFlotaExtra2 {
                                     //------------------------------------------------------------------------------------------
                                     
                                     if (iBarcosNivel2Contador == 0) {
-                                        System.out.println("");
                                         aBarcosNivel2Posiciones[0] = Integer.toString(iPosicionY) + Integer.toString(iPosicionX);
                                         aBarcosNivel2Posiciones[1] = Integer.toString(iPosicionY + 1) + Integer.toString(iPosicionX);
                                     } else {
-                                        
                                         try {
-                                            aBarcosNivel2Posiciones[0+(iBarcosNivel2Contador + 1)] = Integer.toString(iPosicionY) + Integer.toString(iPosicionX);
-                                            aBarcosNivel2Posiciones[1+(iBarcosNivel2Contador + 1)] = Integer.toString(iPosicionY + 1) + Integer.toString(iPosicionX); 
+                                            aBarcosNivel2Posiciones[0+(iBarcosNivel2Contador)] = Integer.toString(iPosicionY) + Integer.toString(iPosicionX);
+                                            aBarcosNivel2Posiciones[1+(iBarcosNivel2Contador)] = Integer.toString(iPosicionY + 1) + Integer.toString(iPosicionX); 
                                         } catch (Exception e) {
                                             //TODO: handle exception
                                             System.out.println("Error de posiciones");
@@ -383,11 +400,11 @@ public class UndirLaFlotaExtra2 {
                                         
                                     }
 
-                                    iBarcosNivel2Contador++;
+                                    iBarcosNivel2Contador+=iBarcosNivel2longitud;
                                     break;
                                 }
                             }
-                            
+                            //System.out.println(cTablero);
                             // barco de 2 vertical
                             //-----------------------------------------------------------------------------------------------------------------------
                             if (
@@ -435,15 +452,16 @@ public class UndirLaFlotaExtra2 {
                                         aBarcosNivel2Posiciones[0] = Integer.toString(iPosicionY) + Integer.toString(iPosicionX);
                                     } else {
                                         try {
-                                            aBarcosNivel2Posiciones[1+(iBarcosNivel2Contador + 2)] = Integer.toString(iPosicionY) + Integer.toString(iPosicionX + 1);
-                                            aBarcosNivel2Posiciones[0+(iBarcosNivel2Contador + 2)] = Integer.toString(iPosicionY) + Integer.toString(iPosicionX);  
+                                            System.out.println("vertical3");
+                                            aBarcosNivel2Posiciones[1+(iBarcosNivel2Contador)] = Integer.toString(iPosicionY) + Integer.toString(iPosicionX + 1);
+                                            aBarcosNivel2Posiciones[0+(iBarcosNivel2Contador)] = Integer.toString(iPosicionY) + Integer.toString(iPosicionX);  
                                         } catch (Exception e) {
                                             //TODO: handle exception
                                         }
                                         
                                     }
                                     
-                                    iBarcosNivel2Contador++;
+                                    iBarcosNivel2Contador +=iBarcosNivel2longitud;
                                     break;
                                 }
                                 
@@ -455,7 +473,7 @@ public class UndirLaFlotaExtra2 {
                     }
                 }
             }
-        } while (iBarcosNivel2Contador != iBarcosNivel2);
+        } while (iBarcosNivel2Contador < iBarcosNivel2*iBarcosNivel2longitud);
         //-----------------------------------------------------------------------------------------------------------------------
         
         // barco de 1
@@ -545,7 +563,7 @@ public class UndirLaFlotaExtra2 {
                     for (int i = 0; i < aBarcosNivel3Posiciones.length-3; i++) {
                         iPosicionY = Character.getNumericValue(aBarcosNivel3Posiciones[i].charAt(0));
                         iPosicionX = Character.getNumericValue(aBarcosNivel3Posiciones[i].charAt(1));
-                        if (cTablero[iPosicionX][iPosicionY] == 'T') {
+                        if (cTablero[iPosicionX][iPosicionY] == cTocados) {
                             iBarcosTocadosNivel3++;
                         } else {
                             iBarcosTocadosNivel3 = 0;
@@ -556,7 +574,7 @@ public class UndirLaFlotaExtra2 {
                             iPosicionY = Character.getNumericValue(aBarcosNivel3Posiciones[i].charAt(0));
                             iPosicionX = Character.getNumericValue(aBarcosNivel3Posiciones[i].charAt(1));
                            
-                            cTablero[iPosicionX][iPosicionY] = 'H';
+                            cTablero[iPosicionX][iPosicionY] = cHundido;
                             iBarcosNivel3Undido = true;
                         }
                     }
@@ -566,7 +584,7 @@ public class UndirLaFlotaExtra2 {
                     for (int i = aBarcosNivel3Posiciones.length-3; i < aBarcosNivel3Posiciones.length; i++) {
                         iPosicionY = Character.getNumericValue(aBarcosNivel3Posiciones[i].charAt(0));
                         iPosicionX = Character.getNumericValue(aBarcosNivel3Posiciones[i].charAt(1));
-                        if (cTablero[iPosicionX][iPosicionY] == 'T') {
+                        if (cTablero[iPosicionX][iPosicionY] == cTocados) {
                             iBarcosTocados2Nivel3++;
                         } else {
                             iBarcosTocados2Nivel3 = 0;
@@ -577,39 +595,38 @@ public class UndirLaFlotaExtra2 {
                             iPosicionY = Character.getNumericValue(aBarcosNivel3Posiciones[i].charAt(0));
                             iPosicionX = Character.getNumericValue(aBarcosNivel3Posiciones[i].charAt(1));
                            
-                            cTablero[iPosicionX][iPosicionY] = 'H';
+                            cTablero[iPosicionX][iPosicionY] = cHundido;
                             iBarcosNivel3Undido2 = true;
                         }
                     }
                 }
                 //---------------------------------------------------------------------------------------------------------
 
+
                 // Comprobacion de Tocado y Hundido de BarcoNivel2
                 //---------------------------------------------------------------------------------------------------------
-
                 iBarcosNivel2Contador = 0;
+                int conatador = 0;
                 for (int iContador = 0; iContador < iBarcosNivel2; iContador++) {
-                    for (int i = iBarcosNivel2Contador ; i < aBarcosNivel2Posiciones.length; i++) {
+                    for (int i = conatador; i < iBarcosNivel2longitud; i++) {
                         iPosicionY = Character.getNumericValue(aBarcosNivel2Posiciones[i].charAt(0));
                         iPosicionX = Character.getNumericValue(aBarcosNivel2Posiciones[i].charAt(1));
-                        if (cTablero[iPosicionX][iPosicionY] == 'T') {
+                        if (cTablero[iPosicionX][iPosicionY] == cTocados) {
                             iBarcosTocadosNivel2++;
-                        } else {
-                            iBarcosTocadosNivel2 = 0;
-                        }
+                        }  
                     }
-                    if (iBarcosTocadosNivel2 == aBarcosNivel2Posiciones.length-4) {
-                        for (int i = 0; i < aBarcosNivel2Posiciones.length-4; i++) {
+                     
+                    if (iBarcosTocadosNivel2 == iBarcosNivel2longitud) {
+                        for (int i = conatador; i < iBarcosNivel2longitud; i++) {
                             iPosicionY = Character.getNumericValue(aBarcosNivel2Posiciones[i].charAt(0));
                             iPosicionX = Character.getNumericValue(aBarcosNivel2Posiciones[i].charAt(1));
-    
-                            System.out.println("true1");
-                           
-                            cTablero[iPosicionX][iPosicionY] = 'H';
-                            iBarcosNivel2Undido = true;
-                        }
+                            if (cTablero[iPosicionX][iPosicionY] == cTocados) {
+                                cTablero[iPosicionX][iPosicionY] = cHundido;
+                            }  
+                        }       
                     }
-                    System.out.println(iBarcosNivel2Contador);
+                    conatador = conatador + iBarcosNivel2longitud;
+                    iBarcosTocadosNivel2 = 0;
                 }
             
                 //---------------------------------------------------------------------------------------------------------
